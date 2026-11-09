@@ -3,17 +3,25 @@
 import Link from "next/link"
 
 import { Button } from "@/components/ui/button"
+import { signIn } from "@/lib/auth-client"
 
 const inputClass =
   "h-10 w-full rounded-lg border border-white/10 bg-white/5 px-3 text-sm text-white outline-none transition-colors placeholder:text-white/40 focus:border-[#5b5bf5]"
 
 export default function SignInPage() {
-  function handleSignIn(event: React.FormEvent<HTMLFormElement>) {
+  async function handleSignIn(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
-    const data = Object.fromEntries(new FormData(event.currentTarget))
-    console.log("Sign in form data:", data)
+    const userData = Object.fromEntries(new FormData(event.currentTarget))
+    console.log("Sign in form data:", userData)
     // TODO: integrate real sign in later
+
+    const { data , error } = await signIn.email({
+       email : userData.email as string ,
+       password : userData.password as string 
+    });
+    console.log("login data", data, error);
+     
   }
 
   return (

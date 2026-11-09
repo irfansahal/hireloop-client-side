@@ -8,6 +8,14 @@ const db = client.db("hireloopDB");
 export const auth = betterAuth({
   //...
   baseURL: process.env.BETTER_AUTH_URL,
+   user: {
+       additionalFields: {
+          role: {
+              type: ['seeker', 'reqruiter', 'admin'],
+              input: false
+            } 
+        }
+    },
    socialProviders: {
         google: { // [!code highlight]
             clientId: process.env.GOOGLE_CLIENT_ID as string, // [!code highlight]
