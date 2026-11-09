@@ -2,6 +2,7 @@ import { Geist, Geist_Mono } from "next/font/google"
 
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
+import { Navbar } from "@/components/navbar"
 import { cn } from "@/lib/utils";
 
 const geist = Geist({subsets:['latin'],variable:'--font-sans'})
@@ -21,9 +22,15 @@ export default function RootLayout({
       lang="en"
       suppressHydrationWarning
       className={cn("antialiased", fontMono.variable, "font-sans", geist.variable)}
+     cz-shortcut-listen="true"
     >
-      <body>
-        <ThemeProvider>{children}</ThemeProvider>
+      <body 
+      cz-shortcut-listen="true"
+      className="flex min-h-svh flex-col">
+        <ThemeProvider>
+          <Navbar />
+          <main className="flex-1">{children}</main>
+        </ThemeProvider>
       </body>
     </html>
   )
