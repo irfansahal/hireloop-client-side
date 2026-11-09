@@ -68,13 +68,13 @@ export function Navbar() {
 
           <div className="flex items-center gap-3">
             <Link
-              href="/login"
+              href="/sign-in"
               className="text-sm text-white/80 transition-colors outline-none hover:text-white focus-visible:ring-3 focus-visible:ring-ring/50"
             >
               Sign In
             </Link>
             <Link
-              href="/signup"
+              href="/sign-up"
               className="inline-flex h-9 items-center justify-center rounded-lg bg-[#5b5bf5] px-4 text-sm font-medium whitespace-nowrap text-white transition-colors outline-none hover:bg-[#4a4ae8] focus-visible:ring-3 focus-visible:ring-[#5b5bf5]/50 active:translate-y-px"
             >
               Get Started
@@ -134,13 +134,13 @@ export function Navbar() {
 
             <div className="mt-auto flex flex-col gap-2 border-t border-white/10 p-4">
               <Link
-                href="/login"
+                href="/sign-in"
                 className="inline-flex h-9 items-center justify-center rounded-lg border border-white/15 bg-transparent px-4 text-sm font-medium text-white transition-colors outline-none hover:bg-white/10 focus-visible:ring-3 focus-visible:ring-ring/50"
               >
                 Sign In
               </Link>
               <Link
-                href="/signup"
+                href="/sign-up"
                 className="inline-flex h-9 items-center justify-center rounded-lg bg-[#5b5bf5] px-4 text-sm font-medium whitespace-nowrap text-white transition-colors outline-none hover:bg-[#4a4ae8] focus-visible:ring-3 focus-visible:ring-[#5b5bf5]/50 active:translate-y-px"
               >
                 Get Started
