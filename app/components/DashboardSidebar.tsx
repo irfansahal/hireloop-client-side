@@ -12,7 +12,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
 import { useSession } from "@/lib/auth-client";
-import { Bookmark, Briefcase, Building2, FileText, LayoutDashboard, LucideIcon, Plus, PlusCircle, Settings, Users, Wallet } from "lucide-react";
+import { Bookmark, Briefcase, Building2, FileText, LayoutDashboard, LucideIcon,  PlusCircle, Settings, Users, Wallet } from "lucide-react";
 import Link from "next/link";
  
 

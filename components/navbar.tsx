@@ -20,17 +20,19 @@ import {
 import { authClient, useSession } from "@/lib/auth-client"
 import { signOut } from "better-auth/api"
 
-const NAV_LINKS = [
-  { label: "Browse Jobs", href: "/jobs" },
-  { label: "Company", href: "/company" },
-  { label: "Pricing", href: "/pricing" },
-]
 
 export function Navbar() {
   const pathname = usePathname()
-
-   const { data : session , error } = useSession()
-   console.log("from navbar",session);
+  
+  const { data : session , error } = useSession()
+  console.log("from navbar",session);
+  
+  const NAV_LINKS = [
+    { label: "Browse Jobs", href: "/jobs" },
+    { label: "Company", href: "/company" },
+    { label: "Pricing", href: "/pricing" },
+    { label: "Deshboard", href: `/dashboard/${session?.user?.role || "seeker"}` }
+  ]
    
    const handleSignOut = async () => {
     await authClient.signOut()
