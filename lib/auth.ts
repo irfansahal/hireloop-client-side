@@ -11,17 +11,17 @@ export const auth = betterAuth({
    user: {
        additionalFields: {
           role: {
-              type: ['seeker', 'reqruiter', 'admin'],
-              input: false
+              type: ['seeker', 'recruiter', 'admin'],
+              input: true // allow the signup form to send the role
             } 
         }
     },
-   socialProviders: {
-        google: { // [!code highlight]
-            clientId: process.env.GOOGLE_CLIENT_ID as string, // [!code highlight]
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET as string, // [!code highlight]
-        }, // [!code highlight]
-    },
+  //  socialProviders: {
+  //       google: { // [!code highlight]
+  //           clientId: process.env.GOOGLE_CLIENT_ID as string, // [!code highlight]
+  //           clientSecret: process.env.GOOGLE_CLIENT_SECRET as string, // [!code highlight]
+  //       }, // [!code highlight]
+  //   },
   emailAndPassword: { 
     enabled: true, 
   }, 

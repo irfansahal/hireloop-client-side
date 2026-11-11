@@ -18,7 +18,8 @@ export default function SignInPage() {
 
     const { data , error } = await signIn.email({
        email : userData.email as string ,
-       password : userData.password as string 
+       password : userData.password as string ,
+       callbackURL: "/"
     });
     console.log("login data", data, error);
      

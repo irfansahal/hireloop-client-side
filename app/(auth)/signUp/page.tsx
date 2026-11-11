@@ -4,24 +4,40 @@ import Link from "next/link"
 
 import { Button } from "@/components/ui/button"
 import { signUp } from "@/lib/auth-client"
+import { useRouter } from "next/navigation"
 
 const inputClass =
   "h-10 w-full rounded-lg border border-white/10 bg-white/5 px-3 text-sm text-white outline-none transition-colors placeholder:text-white/40 focus:border-[#5b5bf5]"
 
+const ROLES = [
+  { value: "seeker", label: "Job Seeker" },
+  { value: "recruiter", label: "Recruiter" },
+  { value: "admin", label: "Admin" },
+]
+
 export default  function SignUpPage() {
+
+   const router = useRouter()
+
   async function handleSignUp(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
     const userData = Object.fromEntries(new FormData(event.currentTarget))
     console.log("Sign up form data:", userData)
-    // TODO: integrate real sign up later
+
     const { data  , error } = await signUp.email({
         email : userData.email as string, // user email address
         password : userData.password as string, // user password -> min 8 characters by default
         name : userData.name as string, // u
+        role : userData.role as "seeker" | "recruiter" | "admin", // account type picked in the form
+        callbackURL: "/" 
     });
     console.log("data", data, error);
     
+    if(!error){
+       router.refresh()
+       router.push("/")
+    }
   }
 
   return (
@@ -100,6 +116,29 @@ export default  function SignUpPage() {
               className={inputClass}
             />
           </div>
+
+          <fieldset className="m-0 border-0 p-0">
+            <legend className="mb-1.5 p-0 text-sm text-white/70">
+              I am signing up as
+            </legend>
+            <div className="grid grid-cols-3 gap-2">
+              {ROLES.map((role) => (
+                <label
+                  key={role.value}
+                  className="cursor-pointer rounded-lg border border-white/10 bg-white/5 px-2 py-2.5 text-center text-sm text-white/70 transition-colors has-[:checked]:border-[#5b5bf5] has-[:checked]:bg-[#5b5bf5]/15 has-[:checked]:text-white focus-within:ring-2 focus-within:ring-[#5b5bf5]/50"
+                >
+                  <input
+                    type="radio"
+                    name="role"
+                    value={role.value}
+                    defaultChecked={role.value === "seeker"}
+                    className="sr-only"
+                  />
+                  {role.label}
+                </label>
+              ))}
+            </div>
+          </fieldset>
 
           <Button
             type="submit"

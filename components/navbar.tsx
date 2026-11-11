@@ -17,6 +17,8 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
+import { authClient, useSession } from "@/lib/auth-client"
+import { signOut } from "better-auth/api"
 
 const NAV_LINKS = [
   { label: "Browse Jobs", href: "/jobs" },
@@ -26,6 +28,13 @@ const NAV_LINKS = [
 
 export function Navbar() {
   const pathname = usePathname()
+
+   const { data : session , error } = useSession()
+   console.log("from navbar",session);
+   
+   const handleSignOut = async () => {
+    await authClient.signOut()
+   }
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-[#0a0a0f]/95 backdrop-blur-md">
@@ -67,18 +76,31 @@ export function Navbar() {
           <Separator orientation="vertical" className="h-5 bg-white/15" />
 
           <div className="flex items-center gap-3">
-            <Link
-              href="/sign-in"
+            {
+              session?.user ? 
+              <>
+              <span> Welcome {session?.user?.name} </span>
+              <button className="inline-flex h-9 items-center justify-center rounded-lg bg-[#5b5bf5] px-4 text-sm font-medium whitespace-nowrap text-white transition-colors outline-none hover:bg-[#4a4ae8] focus-visible:ring-3 focus-visible:ring-[#5b5bf5]/50 active:translate-y-px"
+              onClick={handleSignOut}
+              >
+                Sign Out
+              </button>
+              </>
+              : <>
+              <Link
+              href="/signIn"
               className="text-sm text-white/80 transition-colors outline-none hover:text-white focus-visible:ring-3 focus-visible:ring-ring/50"
             >
               Sign In
             </Link>
             <Link
-              href="/sign-up"
+              href="/signUp"
               className="inline-flex h-9 items-center justify-center rounded-lg bg-[#5b5bf5] px-4 text-sm font-medium whitespace-nowrap text-white transition-colors outline-none hover:bg-[#4a4ae8] focus-visible:ring-3 focus-visible:ring-[#5b5bf5]/50 active:translate-y-px"
             >
               Get Started
             </Link>
+              </>
+            }
           </div>
         </div>
 
@@ -133,18 +155,22 @@ export function Navbar() {
             </nav>
 
             <div className="mt-auto flex flex-col gap-2 border-t border-white/10 p-4">
-              <Link
-                href="/sign-in"
+            {
+              session?.user ? `Welcome ${session?.user.name}` : <>
+                  <Link
+                href="/signIn"
                 className="inline-flex h-9 items-center justify-center rounded-lg border border-white/15 bg-transparent px-4 text-sm font-medium text-white transition-colors outline-none hover:bg-white/10 focus-visible:ring-3 focus-visible:ring-ring/50"
               >
                 Sign In
               </Link>
               <Link
-                href="/sign-up"
+                href="/signUp"
                 className="inline-flex h-9 items-center justify-center rounded-lg bg-[#5b5bf5] px-4 text-sm font-medium whitespace-nowrap text-white transition-colors outline-none hover:bg-[#4a4ae8] focus-visible:ring-3 focus-visible:ring-[#5b5bf5]/50 active:translate-y-px"
               >
                 Get Started
               </Link>
+              </>
+            }
             </div>
           </SheetContent>
         </Sheet>
