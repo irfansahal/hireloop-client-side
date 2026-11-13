@@ -36,6 +36,7 @@ export type JobFormData = {
    salaryMax : string; 
    salaryMin : string ;
    title : string;
+   remote : boolean;
 }
 
 const jobCategories = [
@@ -82,6 +83,8 @@ const AddJobPage = () => {
          typesOfJob : ""
     });
 
+    const [ isRemote , setIsRemote ] = useState(false);
+
     const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
      e.preventDefault();
 
@@ -92,7 +95,8 @@ const AddJobPage = () => {
          ...collectedData,
          currency : selectValue.currency,
          categoryOfJob : selectValue.categoryOfJob,
-         typesOfJob : selectValue.typesOfJob
+         typesOfJob : selectValue.typesOfJob,
+         remote : isRemote
         }
         
         const result = await createJobs(jobData);
@@ -267,7 +271,11 @@ const AddJobPage = () => {
                                     </p>
                                 </div>
                             </div>
-                            <Switch id="remote" name="remote" />
+                            <Switch
+                                id="remote"
+                                checked={isRemote}
+                                onCheckedChange={setIsRemote}
+                            />
                         </div>
                     </CardContent>
                 </Card>
