@@ -21,6 +21,8 @@ import {
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { createJobs } from '@/lib/actions/jobs';
+import { toast } from '@/components/ui/toast';
+import { redirect } from 'next/navigation';
 
 type JobType = "full-time" | "part-time" | "contract" | "internship" | "remote"
 
@@ -96,7 +98,13 @@ const AddJobPage = () => {
         const result = await createJobs(jobData);
         console.log(result);
         console.log("jobData",jobData);
-      
+        if(result.insertedId){
+           toast.add({
+             title: "Job created Successfully",
+             description: "Sunday, December 3 at 9:00 AM",
+           });
+           redirect("/dashboard/recruiter/jobs")
+        }
     }
 
     return (

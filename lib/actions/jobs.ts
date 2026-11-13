@@ -11,7 +11,7 @@ export const createJobs = async (data : JobFormData) => {
         },
         body : JSON.stringify(data)
    });
-   return res
+   return res.json()
 } 
 
 export const deleteJobs = async (jobId : string) => {
