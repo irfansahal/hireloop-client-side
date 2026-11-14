@@ -4,11 +4,18 @@ import Link from "next/link"
 
 import { Button } from "@/components/ui/button"
 import { signIn } from "@/lib/auth-client"
+import { useSearchParams } from "next/navigation"
 
 const inputClass =
   "h-10 w-full rounded-lg border border-white/10 bg-white/5 px-3 text-sm text-white outline-none transition-colors placeholder:text-white/40 focus:border-[#5b5bf5]"
 
 export default function SignInPage() {
+
+  const searchParams = useSearchParams();
+  const redirectURL = searchParams.get("redirectTp") ?? "/"
+
+  console.log("url",redirectURL);
+  
   async function handleSignIn(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
@@ -19,7 +26,7 @@ export default function SignInPage() {
     const { data , error } = await signIn.email({
        email : userData.email as string ,
        password : userData.password as string ,
-       callbackURL: "/"
+       callbackURL: redirectURL
     });
     console.log("login data", data, error);
      

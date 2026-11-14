@@ -28,11 +28,11 @@ export default function RootLayout({
       <body 
       cz-shortcut-listen="true"
       className="flex min-h-svh flex-col">
-        <ThemeProvider>
+        {/* <ThemeProvider> */}
           <Navbar />
           <main className="flex-1">{children}</main>
           <Toaster/>
-        </ThemeProvider>
+        {/* </ThemeProvider> */}
       </body>
     </html>
   )

@@ -28,7 +28,7 @@ export function Navbar() {
   console.log("from navbar",session);
   
   const NAV_LINKS = [
-    { label: "Browse Jobs", href: "/jobs" },
+    { label: "Browse Jobs", href: "/brows-jobs" },
     { label: "Company", href: "/company" },
     { label: "Pricing", href: "/pricing" },
     { label: "Deshboard", href: `/dashboard/${session?.user?.role || "seeker"}` }

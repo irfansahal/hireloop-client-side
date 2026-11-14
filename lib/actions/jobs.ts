@@ -1,3 +1,4 @@
+import { ApplicationType } from "@/app/components/brows-jobs/applyButton";
 import { JobFormData } from "@/app/dashboard/recruiter/jobs/new/page"
 
 
@@ -19,4 +20,15 @@ export const deleteJobs = async (jobId : string) => {
        method : 'DELETE'
      });
      return res.json()
+}
+
+export const CreateApplicationJob = async (data : ApplicationType) => {
+    const res = await fetch(`${BASE_URI}/application`, {
+      method : 'POST',
+       headers : {
+         "content-type" : "application/json"
+        },
+        body : JSON.stringify(data)
+    });
+    return res.json();
 }

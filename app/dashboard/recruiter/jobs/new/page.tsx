@@ -89,7 +89,7 @@ const AddJobPage = () => {
      e.preventDefault();
 
      const formData = new FormData(e.currentTarget);
-     const collectedData = Object.fromEntries(formData.entries())as JobFormData;
+     const collectedData = Object.fromEntries(formData.entries()) as unknown as JobFormData;
      
      const jobData = {
          ...collectedData,
