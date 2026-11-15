@@ -2,6 +2,7 @@
 
 import { Jobs } from "@/app/dashboard/recruiter/jobs/page"
 import { CreateApplicationJob } from "@/lib/actions/jobs"
+import { getApplicationCount } from "@/lib/api/jobs"
 import { authClient } from "@/lib/auth-client"
 import { email, string } from "better-auth"
 import { useRouter } from "next/navigation"
@@ -37,10 +38,18 @@ const ApplyButton = ({oneJob}: {oneJob : Jobs}) => {
            jobTitle : oneJob.title
 
      }
-     const result = await CreateApplicationJob(application);
+    
+     const applicationCount = await getApplicationCount(`applicationId=${user.id}`);
+     console.log("applicationCount",applicationCount.count);
+     
+     if(applicationCount.count >= 4){
+         router.push("/payment")
+     }else{
+       const result = await CreateApplicationJob(application);
      if(result.insertedId){
         console.log("Application Applied Successfully");
         router.push("/brows-jobs")
+     }
      }
      }else{
         console.log("you dont have ");
