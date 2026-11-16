@@ -24,6 +24,7 @@ export type Application = {
     jobId: string;
     jobTitle: string;
     userId: string;
+    status : string;
 };
 
 const JobApplicationPage = async ({ params }: { params: { id: string } }) => {
@@ -90,7 +91,7 @@ const JobApplicationPage = async ({ params }: { params: { id: string } }) => {
                                                 {item.jobTitle}
                                             </span>
                                         </TableCell>
-                                        <ApplicationStatus />
+                                        <ApplicationStatus applicatin={item}/>
                                     </TableRow>
                                 </TableBody>
                             );

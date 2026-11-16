@@ -43,3 +43,25 @@ export const checkoutVeryfy = async (sessionId : string ) => {
   });
   return res.json()
 }
+
+export const updateApplication = async (applicationId : string , data : { status : string}) => {
+    const res = await fetch(`${BASE_URI}/applications/${applicationId}`,{
+      method : "PATCH",
+      headers : {
+          "content-type" : "application/json"
+      },
+      body : JSON.stringify(data)
+    });
+    return res.json()
+}
+
+export const updateUserRole = async (userId : string , role : "seeker" | "recruiter" | "admin") => {
+    const res = await fetch(`${BASE_URI}/users/${userId}/role`,{
+      method : "PETCH",
+      headers : {
+         "content-type" : "application/json"
+      },
+      body : JSON.stringify({ role })
+    });
+    return res.json()
+}
