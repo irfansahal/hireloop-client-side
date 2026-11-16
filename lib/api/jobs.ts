@@ -21,3 +21,8 @@ export const getApplicationCount = async (query = "") => {
      const res = await fetch(`${BASE_URI}/application/count?${query}`);
      return res.json()
 }
+
+export const getPremiumUser = async (userId : string) => {
+    const res = await fetch(`${BASE_URI}/users/${userId}/premium`);
+    return res.json()
+}

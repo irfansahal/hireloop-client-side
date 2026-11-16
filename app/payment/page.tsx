@@ -1,6 +1,6 @@
-"use client"
+// "use client"
 
-import { useState } from "react"
+// import { useState } from "react"
 import { CreditCardIcon, LockIcon, ShieldCheckIcon } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -11,7 +11,7 @@ const inputClass =
 // Plan details — swap these for real plan data when pricing is finalized
 const plan = {
     name: "HireLoop Pro",
-    price: 4.99,
+    price: 20.00,
     period: "month",
     features: [
         "Unlimited job applications",
@@ -20,19 +20,27 @@ const plan = {
     ],
 }
 
-const Payment = () => {
-    const [loading, setLoading] = useState(false)
+const Payment = async ({ searchParams }: {searchParams : Promise<{canceled? : string }>}) => {
+    // const [loading, setLoading] = useState(false)
 
-    async function handlePay(event: React.FormEvent<HTMLFormElement>) {
-        event.preventDefault()
-        setLoading(true)
+     const { canceled } = await searchParams
 
-        // TODO: call the backend to create a Stripe Checkout session,
-        // then redirect to session.url (the hosted Stripe payment page)
-        console.log("Payment intent for plan:", plan.name)
+  if (canceled) {
+    console.log(
+      'Order canceled -- continue to shop around and check out when you\'re ready.'
+    )
+  }
 
-        setLoading(false)
-    }
+    // async function handlePay(event: React.FormEvent<HTMLFormElement>) {
+    //     event.preventDefault()
+    //     setLoading(true)
+ 
+    //     // TODO: call the backend to create a Stripe Checkout session,
+    //     // then redirect to session.url (the hosted Stripe payment page)
+    //     console.log("Payment intent for plan:", plan.name)
+
+    //     setLoading(false)
+    // }
 
     return (
         <div className="flex min-h-[calc(100svh-4rem)] items-center justify-center bg-[#0a0a0f] px-4 py-12 text-white">
@@ -84,7 +92,7 @@ const Payment = () => {
                     <div className="rounded-2xl border border-white/10 bg-[#12121a] p-6">
                         <h2 className="text-base font-semibold">Payment information</h2>
 
-                        <form onSubmit={handlePay} className="mt-4 flex flex-col gap-4">
+                        {/* <form onSubmit={handlePay} className="mt-4 flex flex-col gap-4">
                             <div>
                                 <label
                                     htmlFor="cardholder"
@@ -169,7 +177,15 @@ const Payment = () => {
                             <p className="text-center text-xs text-white/40">
                                 By paying you agree to our Terms & Privacy Policy.
                             </p>
-                        </form>
+                        </form> */}
+
+                          <form action="/api/checkout_sessions" method="POST">
+      <section>
+        <button type="submit" role="link" className="mt-1 h-10 w-full bg-[#5b5bf5] text-white hover:bg-[#4a4ae8]">
+          Checkout
+        </button>
+      </section>
+    </form>
                     </div>
                 </div>
             </div>

@@ -23,6 +23,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { createJobs } from '@/lib/actions/jobs';
 import { toast } from '@/components/ui/toast';
 import { redirect } from 'next/navigation';
+import { authClient } from '@/lib/auth-client';
 
 type JobType = "full-time" | "part-time" | "contract" | "internship" | "remote"
 
@@ -84,6 +85,7 @@ const AddJobPage = () => {
     });
 
     const [ isRemote , setIsRemote ] = useState(false);
+    const { data : session , error } = authClient.useSession()
 
     const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
      e.preventDefault();
@@ -91,12 +93,14 @@ const AddJobPage = () => {
      const formData = new FormData(e.currentTarget);
      const collectedData = Object.fromEntries(formData.entries()) as unknown as JobFormData;
      
+   
      const jobData = {
          ...collectedData,
          currency : selectValue.currency,
          categoryOfJob : selectValue.categoryOfJob,
          typesOfJob : selectValue.typesOfJob,
-         remote : isRemote
+         remote : isRemote,
+         recruiterId : session?.user.id
         }
         
         const result = await createJobs(jobData);

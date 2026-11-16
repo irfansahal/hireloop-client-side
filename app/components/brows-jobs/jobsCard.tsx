@@ -52,58 +52,7 @@ const JobsCard = async (
 
     return (
         <>
-             <div className="mt-4 flex flex-col gap-4">
-                            {jobs.map((job) => {
-                                // const BadgeIcon = job.badge?.icon;
-                                return (
-                                    <article
-                                        key={job.title}
-                                        className="flex items-start gap-4 rounded-xl border border-white/10 bg-[#12121a] p-4"
-                                    >
-                                        {/* Company logo */}
-                                        <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-white/5">
-                                            <BriefcaseIcon className="size-5 text-white/40" />
-                                        </div>
-
-                                        <div className="min-w-0 flex-1">
-                                            <div className="flex items-start justify-between gap-4">
-                                                <div>
-                                                    <h2 className="text-sm font-semibold text-white">
-                                                        {job.title}
-                                                    </h2>
-                                                    <p className="mt-1 text-xs text-white/50">
-                                                        {/* {job.company} •{' '}
-                                                        {job.location} */}
-                                                        {job.categoryOfJob}•{' '}
-                                                        {job.city}
-                                                    </p>
-                                                </div>
-                                                <BookmarkIcon className="size-4 shrink-0 text-white/40" />
-                                            </div>
-
-                                            <div className="mt-3 flex flex-wrap items-center gap-2">
-                                                <span className="flex items-center gap-1 rounded-md border border-white/10 bg-white/5 px-2 py-1 text-xs text-white/70">
-                                                    <DollarSignIcon className="size-3" />
-                                                    {job.salaryMax}
-                                                </span>
-                                                <span className="flex items-center gap-1 rounded-md border border-white/10 bg-white/5 px-2 py-1 text-xs text-white/70">
-                                                    <ClockIcon className="size-3" />
-                                                    {job.typesOfJob}
-                                                </span>
-                                                {/* {job.badge && BadgeIcon ? (
-                                                    <span
-                                                        className={`flex items-center gap-1 rounded-md border px-2 py-1 text-xs ${job.badge.style}`}
-                                                    >
-                                                        <BadgeIcon className="size-3" />
-                                                        {job.badge.label}
-                                                    </span>
-                                                ) : null} */}
-                                            </div>
-                                        </div>
-                                    </article>
-                                );
-                            })}
-                        </div>
+            
         </>
     );
 };

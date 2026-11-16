@@ -1,6 +1,7 @@
 import React from 'react';
-import { PencilIcon, Trash2Icon } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import Link from 'next/link';
+import { EyeIcon, PencilIcon, Trash2Icon } from 'lucide-react';
+import { Button, buttonVariants } from '@/components/ui/button';
 import {
     Card,
     CardContent,
@@ -18,6 +19,8 @@ import {
 } from '@/components/ui/table';
 import { getJobs } from '@/lib/api/jobs';
 import DeleteJobDailog from '@/app/components/DeleteDailog';
+import { auth } from '@/lib/auth';
+import { headers } from 'next/headers';
 
 export type Jobs = {
     benefits :  string;
@@ -37,7 +40,12 @@ export type Jobs = {
 }
 
 const ManageJobs = async () => {
-       const jobs = await getJobs();
+      
+      const session = await auth.api.getSession({
+        headers : await headers()
+      })
+    
+       const jobs = await getJobs(`recruiterId=${session?.user.id}`);
 
        console.log("Jobs", jobs);
        
@@ -80,6 +88,9 @@ const ManageJobs = async () => {
                                 <TableHead className="px-4 py-3 text-xs font-bold tracking-wide text-black uppercase">
                                     Deadline
                                 </TableHead>
+                                <TableHead className="px-4 py-3 text-xs font-bold tracking-wide text-black uppercase">
+                                    Details
+                                </TableHead>
                                 <TableHead className="rounded-r-lg px-4 py-3 text-xs font-bold tracking-wide text-black uppercase">
                                     Actions
                                 </TableHead>
@@ -108,6 +119,18 @@ const ManageJobs = async () => {
                                 </TableCell>
                                 <TableCell className="px-4 py-3">
                                     {item.deadline}
+                                </TableCell>
+                                <TableCell className="px-4 py-3">
+                                    <Link
+                                        href={`/dashboard/recruiter/jobs/${item._id}/applications`}
+                                        className={buttonVariants({
+                                            variant: 'outline',
+                                            size: 'sm',
+                                        })}
+                                    >
+                                        <EyeIcon />
+                                        View Details
+                                    </Link>
                                 </TableCell>
                                 <TableCell className="rounded-r-lg px-4 py-3">
                                     <div className="flex items-center gap-2">

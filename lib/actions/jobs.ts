@@ -32,3 +32,14 @@ export const CreateApplicationJob = async (data : ApplicationType) => {
     });
     return res.json();
 }
+
+export const checkoutVeryfy = async (sessionId : string ) => {
+  const res = await fetch(`${BASE_URI}/payment/checkoute-varify`, {
+    method : "POST",
+    headers : {
+       "content-type" : "application/json"
+    },
+    body : JSON.stringify({sessionId})
+  });
+  return res.json()
+}
