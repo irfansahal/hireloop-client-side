@@ -104,7 +104,7 @@ const AddJobPage = () => {
         }
         
         const result = await createJobs(jobData);
-        console.log(result);
+        console.log(">>>>",result);
         console.log("jobData",jobData);
         if(result.insertedId){
            toast.add({

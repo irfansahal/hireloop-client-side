@@ -46,7 +46,8 @@ const ApplicationStatus = ({
 
 //   console.log(nameInputEvent?.target.value)
 
-  const handleChange = async (value : string) => {
+  const handleChange = async (value : string | null) => {
+      if (!value) return;
     //   console.log(applicatin);
       const result =  await updateApplication(applicatin._id, { status : value});
       // console.log(result.modifiedCount);

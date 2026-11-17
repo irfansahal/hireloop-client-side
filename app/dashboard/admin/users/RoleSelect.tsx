@@ -36,7 +36,8 @@ const RoleSelect = ({
     //     });
     // };
 
-    const handleChange = async (value : string) => {
+    const handleChange = async (value : string | null) => {
+       if (!value) return;
        const result = await updateUserRole(userId, value);
        if(result.success){
            setRole(value)

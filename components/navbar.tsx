@@ -20,6 +20,21 @@ import {
 import { authClient, useSession } from "@/lib/auth-client"
 import { signOut } from "better-auth/api"
 
+// Inline SVG placeholder shown when the user has no image URL.
+const PLACEHOLDER_AVATAR =
+  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='20' fill='%231f1f2b'/%3E%3Ccircle cx='20' cy='15' r='7' fill='%236b6b7a'/%3E%3Cpath d='M6 36c1.5-8 7-12 14-12s12.5 4 14 12' fill='%236b6b7a'/%3E%3C/svg%3E"
+
+function UserAvatar({ src, name }: { src?: string | null; name?: string }) {
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src={src || PLACEHOLDER_AVATAR}
+      alt={name ? `${name}'s avatar` : "User avatar"}
+      className="h-8 w-8 shrink-0 rounded-full object-cover"
+    />
+  )
+}
+
 
 export function Navbar() {
   const pathname = usePathname()
@@ -81,7 +96,10 @@ export function Navbar() {
             {
               session?.user ? 
               <>
-              <span> Welcome {session?.user?.name} </span>
+              <span className="flex items-center gap-2">
+                <UserAvatar src={session?.user?.image} name={session?.user?.name} />
+                Welcome {session?.user?.name}
+              </span>
               <button className="inline-flex h-9 items-center justify-center rounded-lg bg-[#5b5bf5] px-4 text-sm font-medium whitespace-nowrap text-white transition-colors outline-none hover:bg-[#4a4ae8] focus-visible:ring-3 focus-visible:ring-[#5b5bf5]/50 active:translate-y-px"
               onClick={handleSignOut}
               >
@@ -158,7 +176,12 @@ export function Navbar() {
 
             <div className="mt-auto flex flex-col gap-2 border-t border-white/10 p-4">
             {
-              session?.user ? `Welcome ${session?.user.name}` : <>
+              session?.user ? (
+                <span className="flex items-center gap-2">
+                  <UserAvatar src={session.user.image} name={session.user.name} />
+                  Welcome {session.user.name}
+                </span>
+              ) : <>
                   <Link
                 href="/signIn"
                 className="inline-flex h-9 items-center justify-center rounded-lg border border-white/15 bg-transparent px-4 text-sm font-medium text-white transition-colors outline-none hover:bg-white/10 focus-visible:ring-3 focus-visible:ring-ring/50"

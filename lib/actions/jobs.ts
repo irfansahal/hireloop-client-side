@@ -1,17 +1,22 @@
-import { ApplicationType } from "@/app/components/brows-jobs/applyButton";
-import { JobFormData } from "@/app/dashboard/recruiter/jobs/new/page"
+"use server";
+
+import type { ApplicationType } from "@/app/components/brows-jobs/applyButton";
+import type { JobFormData } from "@/app/dashboard/recruiter/jobs/new/page"
+import { protectedMutation } from "../core/server";
 
 
 const BASE_URI = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:5000"
 
 export const createJobs = async (data : JobFormData) => {
-   const res = await fetch(`${BASE_URI}/create-jobs`, {
-     method : 'POST',
-     headers : {
-         "content-type" : "application/json"
-        },
-        body : JSON.stringify(data)
-   });
+  //  const res = await fetch(`${BASE_URI}/create-jobs`, {
+  //    method : 'POST',
+  //    headers : {
+  //        "content-type" : "application/json"
+  //       },
+  //       body : JSON.stringify(data)
+  //  });
+    const api = `${BASE_URI}/create-jobs`;
+   const res = await protectedMutation(api, 'POST', data)
    return res.json()
 } 
 
@@ -23,14 +28,16 @@ export const deleteJobs = async (jobId : string) => {
 }
 
 export const CreateApplicationJob = async (data : ApplicationType) => {
-    const res = await fetch(`${BASE_URI}/application`, {
-      method : 'POST',
-       headers : {
-         "content-type" : "application/json"
-        },
-        body : JSON.stringify(data)
-    });
-    return res.json();
+    // const res = await fetch(`${BASE_URI}/application`, {
+    //   method : 'POST',
+    //    headers : {
+    //      "content-type" : "application/json"
+    //     },
+    //     body : JSON.stringify(data)
+    // });
+    const api = `${BASE_URI}/application`
+    const res =await protectedMutation(api, 'POST', data);
+    return res.json()
 }
 
 export const checkoutVeryfy = async (sessionId : string ) => {

@@ -1,4 +1,4 @@
-import { getUsers } from '@/lib/api/jobs';
+// import { getUsers } from '@/lib/api/jobs';
 import React from 'react';
 import {
     Card,
@@ -16,6 +16,7 @@ import {
     TableRow,
 } from '@/components/ui/table';
 import RoleSelect from './RoleSelect';
+import { getUsers } from '@/lib/actions/better-auth-user';
 
 type AdminUser = {
     id: string;

@@ -9,7 +9,7 @@ import {
     MailIcon,
     SearchIcon,
 } from 'lucide-react';
-import { getJobApplications } from '@/lib/api/jobs';
+import { getJobApplications } from '@/lib/api/applications';
 import { auth } from '@/lib/auth';
 import { headers } from 'next/headers';
 

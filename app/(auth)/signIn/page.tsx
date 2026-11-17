@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import { Suspense } from "react"
 
 import { Button } from "@/components/ui/button"
 import { signIn } from "@/lib/auth-client"
@@ -9,7 +10,7 @@ import { useSearchParams } from "next/navigation"
 const inputClass =
   "h-10 w-full rounded-lg border border-white/10 bg-white/5 px-3 text-sm text-white outline-none transition-colors placeholder:text-white/40 focus:border-[#5b5bf5]"
 
-export default function SignInPage() {
+function SignInForm() {
 
   const searchParams = useSearchParams();
   const redirectURL = searchParams.get("redirectTp") ?? "/"
@@ -95,5 +96,13 @@ export default function SignInPage() {
         </p>
       </div>
     </div>
+  )
+}
+
+export default function SignInPage() {
+  return (
+    <Suspense>
+      <SignInForm />
+    </Suspense>
   )
 }

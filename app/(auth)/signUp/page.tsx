@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import { useState } from "react"
 
 import { Button } from "@/components/ui/button"
 import { signUp } from "@/lib/auth-client"
@@ -18,6 +19,23 @@ const ROLES = [
 export default  function SignUpPage() {
 
    const router = useRouter()
+
+   const [imageFile, setImageFile] = useState<File | null>(null)
+
+   // Only captures the selected file here.
+   // TODO: implement the actual upload (e.g. POST to your storage) and keep the returned URL.
+   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+     const file = event.target.files?.[0]
+     if (!file) return
+
+     if (!file.type.startsWith("image/")) {
+       console.log("Please select an image file")
+       return
+     }
+
+     setImageFile(file)
+     console.log("Selected profile image:", file.name)
+   }
 
   async function handleSignUp(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -114,6 +132,23 @@ export default  function SignUpPage() {
               required
               placeholder="Repeat your password"
               className={inputClass}
+            />
+          </div>
+
+          <div>
+            <label
+              htmlFor="image"
+              className="mb-1.5 block text-sm text-white/70"
+            >
+              Profile image
+            </label>
+            <input
+              id="image"
+              name="image"
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+              className="h-10 w-full cursor-pointer rounded-lg border border-white/10 bg-white/5 px-3 text-sm text-white outline-none transition-colors file:mr-3 file:cursor-pointer file:rounded-md file:border-0 file:bg-white/10 file:px-3 file:py-1.5 file:text-sm file:text-white hover:file:bg-white/20"
             />
           </div>
 

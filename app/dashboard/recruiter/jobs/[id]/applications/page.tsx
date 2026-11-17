@@ -1,4 +1,4 @@
-import { getJobApplications } from '@/lib/api/jobs';
+import { getJobApplications } from '@/lib/api/applications';
 import React from 'react';
 import {
     Card,
@@ -76,7 +76,7 @@ const JobApplicationPage = async ({ params }: { params: { id: string } }) => {
                                 </TableHead>
                             </TableRow>
                         </TableHeader>
-                        {applications.map((item) => {
+                        {applications.length > 0 ? applications.map((item) => {
                             return (
                                 <TableBody key={item._id}>
                                     <TableRow className="bg-black text-white hover:bg-black [&_td]:border-0">
@@ -95,7 +95,7 @@ const JobApplicationPage = async ({ params }: { params: { id: string } }) => {
                                     </TableRow>
                                 </TableBody>
                             );
-                        })}
+                        }):<></>}
                     </Table>
                 </CardContent>
             </Card>

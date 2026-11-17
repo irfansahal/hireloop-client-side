@@ -56,7 +56,7 @@ const manueItemsByroules : Record<Role, MenuItem[]> = {
 
 const DashboardSidebar = () => {
     
-    const { data : session , isLoading } = useSession();
+    const { data : session } = useSession();
      
     const role = session?.user?.role || "seeker"
 

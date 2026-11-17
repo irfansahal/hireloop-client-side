@@ -27,7 +27,11 @@ export const auth = betterAuth({
     enabled: true, 
   }, 
    plugins: [
-        admin() 
+        admin() ,
+  {
+    id: "role-input",
+    schema: { user: { fields: { role: { type: ["seeker", "recruiter", "admin"], required: false, input: true } } } },
+  },
     ],
   database: mongodbAdapter(db, {
     client,
